@@ -22,7 +22,7 @@ public abstract class VideoOptionsScreenMixin extends Screen {
         |   this.addSelectableChild(this.list);                                      |
         X----------------------------[END: 5 LINES DOWN]-----------------------------X  */
     @ModifyArg(
-            method = "init",
+            method = "addOptions",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/widget/OptionListWidget;addAll([Lnet/minecraft/client/option/SimpleOption;)V"

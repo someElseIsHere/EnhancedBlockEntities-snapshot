@@ -5,6 +5,7 @@ import foundationgames.enhancedblockentities.client.model.ModelSelector;
 import foundationgames.enhancedblockentities.util.duck.AppearanceStateHolder;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DecoratedPotPattern;
 import net.minecraft.block.DecoratedPotPatterns;
 import net.minecraft.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.item.Item;
@@ -29,7 +30,7 @@ public class DecoratedPotModelSelector extends ModelSelector {
     public static final int IDX_EMPTY = 0;
     public static final int IDX_BASE_POT = 1;
 
-    private final List<RegistryKey<String>> potteryPatterns;
+    private final List<RegistryKey<DecoratedPotPattern>> potteryPatterns;
 
     public DecoratedPotModelSelector() {
         super(5);
@@ -83,6 +84,6 @@ public class DecoratedPotModelSelector extends ModelSelector {
     }
 
     private int getPatternIndex(Optional<Item> sherd, int max) {
-        return MathHelper.clamp(this.potteryPatterns.indexOf(sherd.map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.DECORATED_POT_SIDE_KEY)), 0, max - 1);
+        return MathHelper.clamp(this.potteryPatterns.indexOf(sherd.map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.BLANK)), 0, max - 1);
     }
 }

@@ -2,9 +2,13 @@ package foundationgames.enhancedblockentities.util.hacks;
 
 import net.minecraft.client.texture.NativeImage;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.stb.STBImage;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.channels.Channels;
+import java.nio.channels.WritableByteChannel;
 import java.util.Optional;
 
 public enum TextureHacks {;
@@ -27,7 +31,16 @@ public enum TextureHacks {;
                     }
                 }
                 src.close();
-                r = prod.getBytes();
+                try (
+                        ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+                        WritableByteChannel writablebytechannel = Channels.newChannel(bytearrayoutputstream);) {
+                    if (!prod.write(writablebytechannel)) {
+                        throw new IOException("Could not write image to byte array: " + STBImage.stbi_failure_reason());
+                    }
+
+                    r = bytearrayoutputstream.toByteArray();
+                }
+
                 prod.close();
             } catch (IllegalArgumentException e) {
                 return Optional.empty();

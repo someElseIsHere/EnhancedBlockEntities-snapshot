@@ -24,7 +24,7 @@ public enum ResourceHacks {;
 
     public static void addChestParticleTexture(String chestName, String chestTexture, ResourceManager manager, EBEPack pack) throws IOException {
         cropAndPutTexture(
-                new Identifier("textures/"+chestTexture+".png"), new Identifier("textures/block/"+chestName+"_particle.png"),
+                Identifier.of("textures/"+chestTexture+".png"), Identifier.of("textures/block/"+chestName+"_particle.png"),
                 manager, pack,
                 42f/64, 33f/64, 58f/64, 49f/64
         );
@@ -32,7 +32,7 @@ public enum ResourceHacks {;
 
     public static void addBedParticleTexture(String bedColor, String bedTexture, ResourceManager manager, EBEPack pack) throws IOException {
         cropAndPutTexture(
-                new Identifier("textures/"+bedTexture+".png"), new Identifier("textures/block/"+bedColor+"_bed_particle.png"),
+                Identifier.of("textures/"+bedTexture+".png"), Identifier.of("textures/block/"+bedColor+"_bed_particle.png"),
                 manager, pack,
                 18f/64, 6f/64, 34f/64, 22f/64
         );
@@ -40,7 +40,7 @@ public enum ResourceHacks {;
 
     public static void addSignParticleTexture(String signType, String signTexture, ResourceManager manager, EBEPack pack) throws IOException {
         cropAndPutTexture(
-                new Identifier("textures/"+signTexture+".png"), new Identifier("textures/block/"+signType+"_sign_particle.png"),
+                Identifier.of("textures/"+signTexture+".png"), Identifier.of("textures/block/"+signType+"_sign_particle.png"),
                 manager, pack,
                 0, 3f/32, 16f/64, 19f/32
         );

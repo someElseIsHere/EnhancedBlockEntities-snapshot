@@ -31,7 +31,7 @@ import java.util.Properties;
 import java.util.Set;
 
 public class EBEPack implements ResourcePack {
-    public static final Identifier BLOCK_ATLAS = new Identifier("blocks");
+    public static final Identifier BLOCK_ATLAS = Identifier.of("blocks");
 
     private final Map<Identifier, AtlasResourceBuilder> atlases = new HashMap<>();
     private final Map<Identifier, InputSupplier<InputStream>> resources = new HashMap<>();
@@ -56,7 +56,7 @@ public class EBEPack implements ResourcePack {
         var resource = this.atlases.computeIfAbsent(atlas, id -> new AtlasResourceBuilder());
         resource.put(source);
 
-        this.addResource(new Identifier(atlas.getNamespace(), "atlases/" + atlas.getPath() + ".json"), resource::toBytes);
+        this.addResource(Identifier.of(atlas.getNamespace(), "atlases/" + atlas.getPath() + ".json"), resource::toBytes);
     }
 
     public void addSingleBlockSprite(Identifier path) {

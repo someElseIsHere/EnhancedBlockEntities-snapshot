@@ -3,4 +3,7 @@ accessWidener   v2      named
 accessible      class   net/minecraft/client/option/SimpleOption$Callbacks
 accessible      class   net/minecraft/client/render/model/BakedModelManager$BakingResult
 
-accessible      field   net/minecraft/block/DecoratedPotPatterns    DECORATED_POT_SIDE_KEY  Lnet/minecraft/registry/RegistryKey;
+accessible method net/minecraft/client/texture/NativeImage getColor (II)I
+accessible method net/minecraft/client/texture/NativeImage setColor (III)V
+accessible field net/minecraft/client/texture/NativeImage sizeBytes J
+accessible method net/minecraft/client/texture/NativeImage write (Ljava/nio/channels/WritableByteChannel;)Z

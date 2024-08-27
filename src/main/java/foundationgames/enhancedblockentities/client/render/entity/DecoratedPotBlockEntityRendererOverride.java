@@ -5,6 +5,7 @@ import foundationgames.enhancedblockentities.client.model.ModelIdentifiers;
 import foundationgames.enhancedblockentities.client.render.BlockEntityRendererOverride;
 import foundationgames.enhancedblockentities.util.EBEUtil;
 import foundationgames.enhancedblockentities.util.duck.BakedModelManagerAccess;
+import net.minecraft.block.DecoratedPotPattern;
 import net.minecraft.block.DecoratedPotPatterns;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.DecoratedPotBlockEntity;
@@ -15,16 +16,18 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class DecoratedPotBlockEntityRendererOverride extends BlockEntityRendererOverride {
     public static final float WOBBLE_STRENGTH = 1f / 64;
 
     private BakedModel baseModel = null;
-    private Map<RegistryKey<String>, BakedModel[]> potPatternModels = null;
+    private Map<RegistryKey<DecoratedPotPattern>, BakedModel[]> potPatternModels = null;
 
     private void tryGetModels() {
         var models = (BakedModelManagerAccess) MinecraftClient.getInstance().getBakedModelManager();
@@ -34,10 +37,10 @@ public class DecoratedPotBlockEntityRendererOverride extends BlockEntityRenderer
         }
 
         if (this.potPatternModels == null) {
-            var builder = ImmutableMap.<RegistryKey<String>, BakedModel[]>builder();
+            var builder = ImmutableMap.<RegistryKey<DecoratedPotPattern>, BakedModel[]>builder();
 
             Registries.DECORATED_POT_PATTERN.getKeys().forEach(k -> {
-                var patternModelIDs = ModelIdentifiers.POTTERY_PATTERNS.get(k);
+                Identifier[] patternModelIDs = ModelIdentifiers.POTTERY_PATTERNS.get(k);
                 BakedModel[] patternPerFaceModels = new BakedModel[patternModelIDs.length];
 
                 for (int i = 0; i < patternModelIDs.length; i++) {
@@ -88,19 +91,19 @@ public class DecoratedPotBlockEntityRendererOverride extends BlockEntityRenderer
 
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
                     this.potPatternModels.get(
-                            sherds.back().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.DECORATED_POT_SIDE_KEY)
+                            sherds.back().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.BLANK)
                     )[0], light, overlay);
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
                     this.potPatternModels.get(
-                            sherds.left().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.DECORATED_POT_SIDE_KEY)
+                            sherds.left().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.BLANK)
                     )[1], light, overlay);
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
                     this.potPatternModels.get(
-                            sherds.right().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.DECORATED_POT_SIDE_KEY)
+                            sherds.right().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.BLANK)
                     )[2], light, overlay);
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
                     this.potPatternModels.get(
-                            sherds.front().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.DECORATED_POT_SIDE_KEY)
+                            sherds.front().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.BLANK)
                     )[3], light, overlay);
 
             matrices.pop();

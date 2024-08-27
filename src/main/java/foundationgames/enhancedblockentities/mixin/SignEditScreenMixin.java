@@ -4,8 +4,10 @@ import foundationgames.enhancedblockentities.EnhancedBlockEntities;
 import foundationgames.enhancedblockentities.EnhancedBlockEntityRegistry;
 import foundationgames.enhancedblockentities.util.EBEUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ingame.AbstractSignEditScreen;
 import net.minecraft.client.gui.screen.ingame.SignEditScreen;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.state.property.Properties;
@@ -16,11 +18,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SignEditScreen.class)
-public class SignEditScreenMixin {
-    @Inject(method = "renderSignBackground", at = @At("HEAD"), cancellable = true)
-    private void enhanced_bes$renderBakedModelSign(DrawContext context, BlockState state, CallbackInfo ci) {
-        boolean enhanceSigns = EnhancedBlockEntities.CONFIG.renderEnhancedSigns;
+public abstract class SignEditScreenMixin extends AbstractSignEditScreen {
+    public SignEditScreenMixin(SignBlockEntity blockEntity, boolean front, boolean filtered) {
+        super(blockEntity, front, filtered);
+    }
 
+    @Inject(method = "renderSignBackground", at = @At("HEAD"), cancellable = true)
+    private void enhanced_bes$renderBakedModelSign(DrawContext context, CallbackInfo ci) {
+        boolean enhanceSigns = EnhancedBlockEntities.CONFIG.renderEnhancedSigns;
+        BlockState state = this.blockEntity.getCachedState();
         if (!EnhancedBlockEntityRegistry.BLOCKS.contains(state.getBlock())) return;
 
         if (enhanceSigns) {

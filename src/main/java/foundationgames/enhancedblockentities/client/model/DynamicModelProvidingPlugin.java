@@ -18,13 +18,13 @@ public class DynamicModelProvidingPlugin implements ModelLoadingPlugin, ModelRes
     }
 
     @Override
-    public void onInitializeModelLoader(ModelLoadingPlugin.Context ctx) {
-        ctx.resolveModel().register(this);
-    }
-
-    @Override
     public @Nullable UnbakedModel resolveModel(ModelResolver.Context ctx) {
         if (ctx.id().equals(this.id)) return this.model.get();
         return null;
+    }
+
+    @Override
+    public void initialize(ModelLoadingPlugin.Context pluginContext) {
+        pluginContext.resolveModel().register(this);
     }
 }
