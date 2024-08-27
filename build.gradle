@@ -11,6 +11,12 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+	flatDir {
+		dirs 'libs'
+	}
+}
+
+repositories {
 	maven { url = 'https://maven.terraformersmc.com/' }
 	maven { url = 'https://api.modrinth.com/maven/' }
 
@@ -30,10 +36,7 @@ dependencies {
 	modCompileOnlyApi "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	// Sodium for compatibility
-	modCompileOnlyApi "maven.modrinth:sodium:${project.sodium_version}"
-
-	// a bit less load time
-	//modLocalRuntime "maven.modrinth:lazydfu:0.1.3"
+	modImplementation 'net.caffeinemc:sodium-fabric:0.6.0-snapshot+mc24w34a-build.309'
 }
 
 processResources {

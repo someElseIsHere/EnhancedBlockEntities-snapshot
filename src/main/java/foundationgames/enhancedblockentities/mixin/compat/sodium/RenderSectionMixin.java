@@ -1,7 +1,7 @@
 package foundationgames.enhancedblockentities.mixin.compat.sodium;
 
 import foundationgames.enhancedblockentities.util.duck.ChunkRebuildTaskAccess;
-import me.jellysquid.mods.sodium.client.render.chunk.RenderSection;
+import net.caffeinemc.mods.sodium.client.render.chunk.RenderSection;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
